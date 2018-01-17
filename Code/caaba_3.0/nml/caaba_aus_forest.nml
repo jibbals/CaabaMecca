@@ -1,0 +1,98 @@
+! -*- f90 -*- Time-stamp: <2018-01-13 12:12:12 Jwg366>
+
+!*** coupling namelist for CAABA boxmodel
+
+&CAABA
+
+!*** choose one or more MESSy submodels:
+!USE_JVAL    = T
+ USE_MECCA   = T
+!USE_READJ   = T
+ USE_SAPPHO  = T
+ USE_SEMIDEP = T
+!USE_TRAJECT = T
+
+!*** see "list_of_scenarios" in caaba.f90 for possibilities:
+! My scenario
+init_scenario     = 'AUS_FOR'
+!photo_scenario    = ''
+emission_scenario = 'AUS_FOR'
+drydep_scenario   = 'AUS_FOR'
+
+!*** temperature [K]
+temp = 293.
+
+!*** pressure [Pa]
+press = 101325.
+
+!*** relative humidity [1]
+!relhum = 0.81
+
+!*** height of the mbl [m]
+! used as pbl
+zmbl = 1000.
+
+!*** fine-tuning of humidity:
+!l_ignore_relhum = T
+!l_psat_emac     = T
+!l_relhum_wmo    = T
+
+!*** location (affects only solar zenith angle and trajectories)
+degree_lat = -35.
+degree_lon = 130.,
+
+!*** frost flower model run?
+!l_ff = T
+
+!*** day of model start
+!*** note that model_start_day=0. refers to the 1st of Jan at 0:00 in
+!*** the morning and therefore, e.g., model_start_day=14. refers to 15th Jan
+!model_start_day = 14.
+
+!*** duration of the model run in days; default: 8
+!runtime_str = '40 days'
+
+!*** time step length, default: 20 minutes
+timesteplen_str = '30 minutes'
+
+!*** the Ca precipitation factor changes the fraction of CaCO3 contained in
+!*** sea salt (only needed for frost flower model runs):
+!Ca_precip = 0.3
+
+!*** init_spec = initialize species from netcdf file:
+!init_spec = 'traject/example_init.nc'
+
+!*** Choose a channel that contains J-values for photolysis reactions:
+!photrat_channel = 'jval'
+!photrat_channel = 'readj'
+ photrat_channel = 'sappho'
+
+!*** skip call to kpp chemistry integration? (only for debugging)
+!l_skipkpp = T
+
+!*** stop caaba when steady state is reached?
+l_steady_state_stop = T
+
+!*** init_j = initialize J-values from netcdf file (only for READJ):
+!init_j = 'input/example_readj.nc'
+!init_j_index = 25
+
+!*** NOx injection (only for SEMIDEP):
+l_injectNOx = F
+! input time start and finish (try to make it one time step)
+t_NOxon     = 2.833
+t_NOxoff    = 2.8538333
+!+0.0208333 = half an hour
+
+!*** TRAJECT-specific variables (see caaba_traject.nml for details):
+!runlast     = 8
+!input_physc = 'traject/example_traj.nc'
+!input_jval  = 'traject/example_jval.nc'
+!vlon        = 'LON_TR'
+!vlat        = 'LAT_TR'
+!vpress      = 'PRESS_TR'
+!vtemp       = 'TM1'
+!vrelhum     = 'RELHUM'
+!vspechum    = 'Q'
+
+/
